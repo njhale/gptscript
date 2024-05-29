@@ -2,6 +2,8 @@
 
 all: build-ui build
 
+# Foo
+
 build-ui:
 	$(MAKE) -C ui
 	rm -rf static/ui
