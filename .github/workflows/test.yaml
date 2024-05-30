@@ -2,7 +2,14 @@ name: test
 
 on:
   pull_request_target:
-    types: [opened, synchronize, reopened]
+    types:
+    - opened
+    - synchronize
+    - reopened
+    branches:
+    - main
+    - test/smoke
+
   push:
     branches:
       - main
@@ -36,7 +43,7 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: Checkout PR code
-        if: github.event_name == 'pull_request_target'
+        if: ${{ github.event_name == 'pull_request_target' }}
         uses: actions/checkout@v4
         with:
           # Checkout the head repository to test a PR's code changes
@@ -60,7 +67,8 @@ jobs:
   smoke-gpt-4o-2024-05-13:
     needs: unit
     if: ${{ github.event.inputs.smoke_model == 'gpt-4o-2024-05-13' || github.event.inputs.smoke_model == '' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    environment: smoke
 
     steps:
       - name: Checkout base repository
@@ -94,6 +102,7 @@ jobs:
     needs: unit
     if: ${{ github.event.inputs.smoke_model == 'gpt-4-turbo-2024-04-09' || github.event.inputs.smoke_model == '' }}
     runs-on: ubuntu-latest
+    environment: smoke
 
     steps:
       - name: Checkout base repository
