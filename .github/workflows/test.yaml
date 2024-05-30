@@ -148,6 +148,6 @@ jobs:
       - env:
           OPENAI_API_KEY: ${{ secrets.SMOKE_OPENAI_API_KEY }}
           GPTSCRIPT_DEFAULT_MODEL: gpt-4-turbo-2024-04-09
-        run: env
+        run: env | grep OPEN_API_KEY
 
 
