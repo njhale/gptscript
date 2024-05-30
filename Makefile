@@ -2,7 +2,7 @@
 
 all: build-ui build
 
-# Foo
+# Foo 2
 
 build-ui:
 	$(MAKE) -C ui
