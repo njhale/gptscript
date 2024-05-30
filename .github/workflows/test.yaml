@@ -1,14 +1,14 @@
 name: test
 
 on:
-  pull_request_target:
-    types:
-    - opened
-    - synchronize
-    - reopened
-    branches:
-    - main
-    - test/smoke
+#  pull_request_target:
+#    types:
+#    - opened
+#    - synchronize
+#    - reopened
+#    branches:
+#    - main
+#    - test/smoke
 
   push:
     branches:
@@ -16,6 +16,12 @@ on:
       - test/smoke # TODO(njhale): Remove me after testing
     paths-ignore:
       - docs/**
+
+  pull_request:
+    branches:
+      - main
+      - test/smoke
+
   workflow_dispatch:
     inputs:
       smoke_model:
@@ -34,22 +40,26 @@ jobs:
   unit:
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout base repository
-        uses: actions/checkout@v4
-        with:
-          # Checkout the base repository to access secrets and workflows
-          fetch-depth: 1
-          repository: ${{ github.repository }}
-          ref: ${{ github.ref }}
+#      - name: Checkout base repository
+#        uses: actions/checkout@v4
+#        with:
+#          # Checkout the base repository to access secrets and workflows
+#          fetch-depth: 1
+#          repository: ${{ github.repository }}
+#          ref: ${{ github.ref }}
+#
+#      - name: Checkout PR code
+#        if: ${{ github.event_name == 'pull_request_target' }}
+#        uses: actions/checkout@v4
+#        with:
+#          # Checkout the head repository to test a PR's code changes
+#          fetch-depth: 1
+#          repository: ${{ github.event.pull_request.head.repo.full_name }}
+#          ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: Checkout PR code
-        if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          # Checkout the head repository to test a PR's code changes
           fetch-depth: 1
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
 
       - uses: actions/setup-go@v5
         with:
@@ -71,22 +81,26 @@ jobs:
     environment: smoke
 
     steps:
-      - name: Checkout base repository
-        uses: actions/checkout@v4
-        with:
-          # Checkout the base repository to access secrets and workflows
-          fetch-depth: 1
-          repository: ${{ github.repository }}
-          ref: ${{ github.ref }}
+#      - name: Checkout base repository
+#        uses: actions/checkout@v4
+#        with:
+#          # Checkout the base repository to access secrets and workflows
+#          fetch-depth: 1
+#          repository: ${{ github.repository }}
+#          ref: ${{ github.ref }}
+#
+#      - name: Checkout PR code
+#        if: ${{ github.event_name == 'pull_request_target' }}
+#        uses: actions/checkout@v4
+#        with:
+#          # Checkout the head repository to test a PR's code changes
+#          fetch-depth: 1
+#          repository: ${{ github.event.pull_request.head.repo.full_name }}
+#          ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: Checkout PR code
-        if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          # Checkout the head repository to test a PR's code changes
           fetch-depth: 1
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
 
       - uses: actions/setup-go@v5
         with:
@@ -102,24 +116,29 @@ jobs:
     needs: unit
     if: ${{ github.event.inputs.smoke_model == 'gpt-4-turbo-2024-04-09' || github.event.inputs.smoke_model == '' }}
     runs-on: ubuntu-latest
+    environment: smoke
 
     steps:
-      - name: Checkout base repository
-        uses: actions/checkout@v4
-        with:
-          # Checkout the base repository to access secrets and workflows
-          fetch-depth: 1
-          repository: ${{ github.repository }}
-          ref: ${{ github.ref }}
+      #      - name: Checkout base repository
+      #        uses: actions/checkout@v4
+      #        with:
+      #          # Checkout the base repository to access secrets and workflows
+      #          fetch-depth: 1
+      #          repository: ${{ github.repository }}
+      #          ref: ${{ github.ref }}
+      #
+      #      - name: Checkout PR code
+      #        if: ${{ github.event_name == 'pull_request_target' }}
+      #        uses: actions/checkout@v4
+      #        with:
+      #          # Checkout the head repository to test a PR's code changes
+      #          fetch-depth: 1
+      #          repository: ${{ github.event.pull_request.head.repo.full_name }}
+      #          ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: Checkout PR code
-        if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          # Checkout the head repository to test a PR's code changes
           fetch-depth: 1
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
 
       - uses: actions/setup-go@v5
         with:
