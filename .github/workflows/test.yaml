@@ -106,7 +106,9 @@ jobs:
       - env:
           OPENAI_API_KEY: ${{ secrets.SMOKE_OPENAI_API_KEY }}
           GPTSCRIPT_DEFAULT_MODEL: gpt-4o-2024-05-13
-        run: env
+        run: |
+          echo "${OPENAI_API_KEY"}"
+          echo "Hello!!!"
 
   smoke-gpt-4-turbo-2024-04-09:
     needs: unit
