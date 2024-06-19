@@ -25,6 +25,7 @@ import (
 const defaultModelEnvVar = "GPTSCRIPT_DEFAULT_MODEL"
 
 func TestSmoke(t *testing.T) {
+	// Smoke delta from member
 	client := openai.NewClient(os.Getenv("OPENAI_API_KEY"))
 	smokeJudge, err := judge.New[[]event](client)
 	require.NoError(t, err, "error initializing smoke test judge")
