@@ -1,4 +1,4 @@
-package parser
+package parser //nolint:revive
 
 import (
 	"reflect"
