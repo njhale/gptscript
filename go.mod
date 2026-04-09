@@ -1,13 +1,13 @@
 module github.com/gptscript-ai/gptscript
 
-go 1.25.5
+go 1.26.2
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.7
 	github.com/BurntSushi/locker v0.0.0-20171006230638-a6e239ea1c69
 	github.com/adrg/xdg v0.5.3
 	github.com/chzyer/readline v1.5.1
-	github.com/docker/cli v26.0.0+incompatible
+	github.com/docker/cli v29.4.0+incompatible
 	github.com/docker/docker-credential-helpers v0.8.1
 	github.com/fatih/color v1.18.0
 	github.com/getkin/kin-openapi v0.132.0

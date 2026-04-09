@@ -1,4 +1,4 @@
-package context
+package context //nolint:revive
 
 import (
 	"context"
